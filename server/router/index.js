@@ -41,10 +41,10 @@ module.exports = app => {
   //   console.log(req.query)
   //   res.send(item)
   // })
-
+  // 获取商品列表数据
   router.get('/home_list', async (req, res) => {
-    let page = (parseInt(req.query.page) - 1) * 6
-    const item = await HomeData.find().skip(page).limit(6)
+    let page = (parseInt(req.query.page) - 1) * 4
+    const item = await HomeData.find().skip(page).limit(4)
     res.send(item)
   })
   // 获取分类列表
@@ -184,7 +184,6 @@ module.exports = app => {
   // 查询订单数据
   router.get('/get_order', auth(), async (req, res) => {
     const item = await Order.find()
-    console.log(item);
     res.send(item)
   })
   // 保存订单数据
