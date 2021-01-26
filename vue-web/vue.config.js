@@ -19,8 +19,8 @@ module.exports = {
       config.set('externals', {
         vue: 'Vue',
         'vue-router': 'VueRouter',
-        axios: 'axios',
-        nprogress: 'NProgress'
+        axios: 'axios'
+        // nprogress: 'NProgress'
       })
     })
     // 开发模式

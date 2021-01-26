@@ -38,6 +38,7 @@ export default {
     }
   },
   methods: {
+    // 获取分类
     async getData() {
       const { data: res } = await this.$axios.get('/categories')
       this.module = res

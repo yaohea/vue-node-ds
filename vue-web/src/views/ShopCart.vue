@@ -105,13 +105,6 @@ export default {
           val.state = true
         })
       }
-
-      // if (this.result.length === this.modules.length) {
-      //   this.flag = false
-      // } else {
-      //   this.flag = true
-      // }
-      // this.$refs.checkboxGroup.toggleAll(this.flag)
     },
     // 点击单个复选框判断全选按钮的状态
     async dange(val, id) {

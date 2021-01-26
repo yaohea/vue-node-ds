@@ -5,7 +5,6 @@
       <div class="my-t">
         <div class="img"><img src="@/assets/img/MY.png" alt="" /></div>
         <div class="my-name">{{name}}</div>
-        <!-- <div class="set"><img src="@/assets/img/set.webp" alt="" /></div> -->
         <div><van-button class="set" size="mini" type="default" @click="out">退出</van-button></div>
       </div>
     </div>
@@ -29,19 +28,18 @@ import TabBar from '@/components/common/TabBar.vue'
 export default {
   data() {
     return {
-      name: '',
-      show: false
+      name: ''
     }
   },
   methods: {
-    showPopup() {
-      this.show = true
-    },
+
+    // 获取名称
     async getUser() {
       const { data: res } = await this.$axios.get('/get_user')
       this.name = res.username
       console.log(res)
     },
+    // 退出
     out() {
       localStorage.clear('token')
       this.$toast.success('退出')

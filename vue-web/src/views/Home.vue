@@ -38,7 +38,7 @@
       </van-pull-refresh>
     </div>
 
-    <!-- <back-top @click.native="backClick" v-show="isShowBackTop"></back-top> -->
+    <back-top></back-top>
     <!-- 底部 -->
     <div style="height: 2rem"></div>
     <TabBar class="w-100"></TabBar>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import BackTop from '@/components/common/BackTop.vue'
 import TabBar from '@/components/common/TabBar.vue'
 import NavBar from '@/components/common/NavBar'
 import { getHomeSwipe, getHomeLists, getHomeicon } from '@/api/home'
@@ -55,7 +56,6 @@ export default {
       home_swipe: {},
       home_list: { page: 0, list: [] },
       home_icon: {},
-      isShowBackTop: false,
       loading: false,
       finished: false,
       refreshing: false
@@ -101,6 +101,7 @@ export default {
         // 数据全部加载完成
         if (this.home_list.list.length >= 15) {
           this.finished = true
+          this.isShowBackTop = true
         }
       }, 1000)
     },
@@ -120,7 +121,8 @@ export default {
   },
   components: {
     NavBar,
-    TabBar
+    TabBar,
+    BackTop
   },
   mounted() {
     this.$toast.setDefaultOptions({ duration: 300 })
