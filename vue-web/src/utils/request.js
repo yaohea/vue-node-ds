@@ -37,7 +37,8 @@ const errorHandle = (status, other) => {
   }
 }
 const http = axios.create({
-  baseURL: 'http://127.0.0.1:3000/web/api'
+  baseURL: process.env.VUE_APP_URL || '/web/api'
+  // baseURL: 'http://127.0.0.1:3000/web/api'
 })
 http.interceptors.request.use(function (config) {
   NProgress.start()

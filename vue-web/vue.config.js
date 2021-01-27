@@ -5,6 +5,14 @@ function resolve (dir) {
 }
 
 module.exports = {
+  // // 发布模式(生产环境)生成的静态文件路径
+  // publicPath: process.env.NODE_ENV === 'production'
+  //   ? '/web/' // 加上web
+  //   : '/',
+  outputDir: path.join(__dirname, '/../server/web'),
+  // assetsDir: 'web',
+  // indexPath: 'index.html',
+  // 引入的路径？
   configureWebpack: {
     resolve: {
       alias: {
