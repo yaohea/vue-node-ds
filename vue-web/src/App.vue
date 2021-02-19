@@ -1,13 +1,14 @@
 <template>
   <div id="app">
-    <router-view :key="$route.path" />
+    <keep-alive>
+      <router-view v-if="$route.meta.keepAlive"></router-view>
+    </keep-alive>
+    <router-view v-if="!$route.meta.keepAlive" :key="$route.path" />
   </div>
 </template>
 
 <script>
-
-export default {
-}
+export default {}
 </script>
 
 <style>

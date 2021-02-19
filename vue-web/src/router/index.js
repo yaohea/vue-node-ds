@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-const Home = () => import(/* webpackChunkName: "Home" */ '../views/Home.vue')
+const Home = () => import(/* webpackChunkName: "Home_search" */ '../views/Home.vue')
+const search = () => import(/* webpackChunkName: "Home_search" */ '../views/search/search.vue')
 
 const Mine = () => import(/* webpackChunkName: "Mine_About_User" */ '../views/Mine.vue')
 const ShopCart = () => import(/* webpackChunkName: "ShopCart" */ '../views/ShopCart.vue')
@@ -56,7 +57,7 @@ const routes = [
   {
     path: '/category',
     component: Category,
-    meta: { isPublic: true }
+    meta: { isPublic: true, keepAlive: true }
   },
   {
     path: '/home',
@@ -113,10 +114,14 @@ const routes = [
   }, {
     path: '/user',
     component: User
+  }, {
+    path: '/search',
+    component: search
   }
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 

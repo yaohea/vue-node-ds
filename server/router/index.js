@@ -41,6 +41,17 @@ module.exports = app => {
   //   console.log(req.query)
   //   res.send(item)
   // })
+  // 获取搜索数据
+  router.get('/search', async (req, res) => {
+    const item = await HomeData.find()
+    const item2 = item.filter(val => {
+      if (val.title.indexOf(req.query.name) !== -1) {
+        return true
+      }
+    })
+    console.log(item2);
+    res.send(item2)
+  })
   // 获取商品列表数据
   router.get('/home_list', async (req, res) => {
     let page = (parseInt(req.query.page) - 1) * 4

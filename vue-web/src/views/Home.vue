@@ -2,7 +2,7 @@
   <div id="Home">
     <NavBar color="#ff155e" title="首页" title-color="text-white">
       <img @click="$router.push('/category')" slot="left" src="@/assets/img/3.png" alt="" />
-      <img @click="$router.push('/mine')" slot="right" src="@/assets/img/5.png" alt="" />
+      <img @click="$router.push('/search')" slot="right" src="@/assets/img/search (2).png" alt="" />
     </NavBar>
     <!-- 轮播图 -->
     <div class="main">
@@ -18,26 +18,8 @@
       </div>
     </van-row>
     <!-- goods -->
-    <div class="goods">
-      <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-        <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :immediate-check="false">
-          <ul class="goods-c">
-            <router-link :to="`/detail/${item.goodsId}`" tag="li" v-for="item in home_list.list" :key="item.id" class="goods-n">
-              <img class="goods-m" v-lazy="$axios.defaults.baseURL + item.img" alt="" />
-              <p>
-                <img src="@/assets/img/4.png" alt="" />
-                {{ item.title }}
-              </p>
-              <p class="goods-pp">
-                <span style="color: red">￥{{ item.price }}</span
-                ><span class="goods-pr fs-12">看相似</span>
-              </p>
-            </router-link>
-          </ul>
-        </van-list>
-      </van-pull-refresh>
-    </div>
-
+      <home-goods></home-goods>
+      <!--  -->
     <back-top></back-top>
     <!-- 底部 -->
     <div style="height: 2rem"></div>
@@ -49,16 +31,13 @@
 import BackTop from '@/components/common/BackTop.vue'
 import TabBar from '@/components/common/TabBar.vue'
 import NavBar from '@/components/common/NavBar'
-import { getHomeSwipe, getHomeLists, getHomeicon } from '@/api/home'
+import { getHomeSwipe, getHomeicon } from '@/api/home'
+import HomeGoods from '../components/my/HomeGoods.vue'
 export default {
   data() {
     return {
       home_swipe: {},
-      home_list: { page: 0, list: [] },
-      home_icon: {},
-      loading: false,
-      finished: false,
-      refreshing: false
+      home_icon: {}
     }
   },
   methods: {
@@ -67,69 +46,21 @@ export default {
       const { data: res } = await getHomeSwipe()
       this.home_swipe = res
     },
-    // 商品列表获取
-    async getHomeList() {
-      const page = this.home_list.page + 1
-      // 发送请求
-      console.log(page)
-      const { data: res } = await getHomeLists(page)
-      // push到数组
-      this.home_list.list.push(...res)
-      // 页码+1
-      this.home_list.page += 1
-      // 发送再次上拉刷新请求
-      // 刷新
-    },
     // 图标获取
     async getHomeicon() {
       const { data: res } = await getHomeicon()
       this.home_icon = res
-    },
-    onLoad() {
-      // 异步更新数据
-      setTimeout(() => {
-        if (this.refreshing) {
-          this.home_list.list = []
-          this.home_list.page = 0
-          this.refreshing = false
-        }
-        // 再次获取数据
-        this.getHomeList()
-        // 加载状态结束
-        this.loading = false
-
-        // 数据全部加载完成
-        if (this.home_list.list.length >= 15) {
-          this.finished = true
-          this.isShowBackTop = true
-        }
-      }, 1000)
-    },
-    onRefresh() {
-      // 清空列表数据
-      this.finished = false
-      // 重新加载数据
-      // 将 loading 设置为 true，表示处于加载状态
-      this.loading = true
-      this.onLoad()
     }
   },
   created() {
     this.getHomeSwipe()
-    this.getHomeList()
     this.getHomeicon()
   },
   components: {
     NavBar,
     TabBar,
-    BackTop
-  },
-  mounted() {
-    this.$toast.setDefaultOptions({ duration: 300 })
-    this.$toast.loading({
-      message: '加载中...',
-      forbidClick: true
-    })
+    BackTop,
+    HomeGoods
   }
 }
 </script>
@@ -173,7 +104,7 @@ export default {
     width: 20%;
   }
 }
-// goods
+// // goods
 .goods {
   padding: 0 0.12rem;
   .goods-c {

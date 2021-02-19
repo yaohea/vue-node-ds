@@ -21,12 +21,12 @@ module.exports = {
     }
   },
   chainWebpack: config => {
-    // 发布模式
+    // 发布(生产)模式
     config.when(process.env.NODE_ENV === 'production', config => {
       config.entry('app').clear().add('./src/main-prod.js')
       config.set('externals', {
         vue: 'Vue',
-        'vue-router': 'VueRouter',
+        // 'vue-router': 'VueRouter',
         axios: 'axios'
         // nprogress: 'NProgress'
       })
