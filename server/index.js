@@ -1,8 +1,9 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
+var history = require('connect-history-api-fallback');
 const app = express()
-
+app.use(history());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(require('cors')())

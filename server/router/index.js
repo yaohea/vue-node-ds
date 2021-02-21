@@ -35,12 +35,11 @@ module.exports = app => {
     const item = await NavIcon.find()
     res.send(item)
   })
-  // 获取商品列表数据
-  // router.get('/home_list', async (req, res) => {
-  //   const item = await HomeData.find()
-  //   console.log(req.query)
-  //   res.send(item)
-  // })
+  // 获取商品全部列表数据
+   router.get('/home_list_all', async (req, res) => {
+     const item = await HomeData.find()
+     res.send(item)
+   })
   // 获取搜索数据
   router.get('/search', async (req, res) => {
     const item = await HomeData.find()
